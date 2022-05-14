@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = 'roundTableSpider.spiders'
 #USER_AGENT = 'roundTableSpider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -90,5 +90,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
-SPLASH_URL = 'http://0.0.0.0:8050/'
+SPLASH_URL = 'http://0.0.0.0:8050'
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'

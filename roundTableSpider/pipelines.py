@@ -15,5 +15,6 @@ class RoundtablespiderPipeline:
     def process_item(self, item, spider):
         print('item["link"]')
         print(item["link"])
-        call(["mplayer", '-ao', 'alsa', '-really-quiet', '-noconsolecontrols', "lirc=no", item["link"]])
+        # call(["mplayer", '-ao', 'alsa', '-really-quiet', '-noconsolecontrols', "lirc=no", item["link"]])
+        call(["wget", "-O", "/home/dustin/temp/roundtable_newest.mp3", item["link"]])
         return item

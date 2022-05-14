@@ -5,12 +5,27 @@ from scrapy_splash import SplashRequest
 
 class RoundtableSpider(scrapy.Spider):
     name = 'roundTable'
-    allowed_domains = ['http://ezfm.cri.cn/columnList/ezfm/11']
+    allowed_domains = ['http://ezfm.cri.cn']
     start_urls = ['http://ezfm.cri.cn/columnList/ezfm/11/']
+
+    headers = {
+        'Connection': 'keep-alive',
+        'Cache-Control': 'max-age=0',
+        'DNT': '1',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Chrome/78.0.3904.87',
+        'Sec-Fetch-User': '?1',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-Mode': 'navigate',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-CN,zh;zen-US,en;q=0.9'
+    }
 
     def start_requests(self):
         for url in self.start_urls:
-            yield SplashRequest(url, args={'wait': 0.5})
+            yield SplashRequest(url,
+                                args={'wait': 5})
 
     def parse(self, response):
         self.logger.info("found html:")
