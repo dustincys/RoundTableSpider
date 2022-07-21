@@ -30,21 +30,24 @@ class RoundtableSpider(scrapy.Spider):
     def parse(self, response):
         self.logger.info("found html:")
         self.logger.info(response.css("html").getall())
-        eventObjs = response.css("html body i.item-playbtn").getall()
+        eventObjs = response.xpath("/html/body/div[1]/div[2]/div/div[1]/div[4]/ul//i").getall()
+        self.logger.info("eventObjs[0]:")
+        self.logger.info(eventObjs[0])
 
-        if len(eventObjs) > 0:
-            dataUrls = [re.search("(?<=data-url=\").+?(?=\")", eventText).group()
-                    for eventText in eventObjs]
-            dataDates = [re.search("(?<=data-date=\").+?(?=\")", eventText).group()
-                    for eventText in eventObjs]
-            dataTitles = [re.search("(?<=data-title=\").+?(?=\")", eventText).group()
-                    for eventText in eventObjs]
-            self.logger.info("found mp3:")
-            self.logger.info(";".join(dataUrls))
-            rItem = RoundtablespiderItem()
-            rItem['title'] = dataTitles[0]
-            rItem['time'] = dataDates[0]
-            rItem['link'] = dataUrls[0]
-            yield rItem
+        eventText = eventObjs[0]
 
+        dataUrl = re.search("(?<=data-url=\").+?(?=\")", eventText).group()
+        dataDate = re.search("(?<=data-date=\").+?(?=\")", eventText).group()
+        dataTitle = re.search("(?<=data-title=\").+?(?=\")", eventText).group()
+
+        self.logger.info(dataUrl)
+        self.logger.info(dataDate)
+        self.logger.info(dataTitle)
+
+        rItem = RoundtablespiderItem()
+        rItem['title'] = dataTitle
+        rItem['time'] = dataDate
+        rItem['link'] = dataUrl
+
+        yield rItem
         pass
